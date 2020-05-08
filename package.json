@@ -1,0 +1,22 @@
+{
+  "name": "od-calculator",
+  "version": "1.0.0",
+  "description": "A super tricked out calculator built to solve a super simple geometry problem",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Callisto-Burns/OD-Calculator.git"
+  },
+  "author": "Jackson Burns",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Callisto-Burns/OD-Calculator/issues"
+  },
+  "homepage": "https://github.com/Callisto-Burns/OD-Calculator#readme",
+  "devDependencies": {
+    "electron": "^7.1.1"
+  }
+}

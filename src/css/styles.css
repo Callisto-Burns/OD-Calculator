@@ -1,0 +1,130 @@
+* {
+	position: relative;
+	font-family: Arial;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+}
+
+body, .grid-container{
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+	background-color: #999999;
+	overflow: hidden;
+}
+
+.grid-container{
+	display: grid;
+	grid-template-columns: 200px auto auto;
+	grid-template-rows: 60px auto;
+	background-color: grey;
+}
+
+.header {
+	background-color: #ff6700;
+	grid-column-start: 1;
+	grid-column-end: 4;
+	grid-row-start: 1;
+	grid-row-end: 2;
+	text-align: left;
+	padding: 12px;
+	font-size: 30px;
+	color: white;
+	font-weight: 300;
+}
+.header > * {
+	display: inline-block;
+	vertical-align: top;
+}
+
+.logo{
+	padding: 3px 200px 0 5px;
+	height: 30px;
+	width: auto;
+}
+
+.render-container{
+	background-color: hotpink;
+	grid-column-start: 2;
+	grid-column-end: 4;
+	grid-row-start: 2;
+	grid-row-end: 3;
+	padding: 0;
+	margin: 0;
+}
+
+.tool-render {
+	background-color:  #6f6f6f;
+	margin: 0;
+	padding: 0;
+	/*box-shadow: inset 0 0 30em 1em rgba(50,50,50,1);*/
+}
+
+.side-bar-left {
+	display: grid;
+	grid-template-rows: auto auto auto auto auto 1fr;
+	grid-template-columns: 1fr 6fr 1fr;
+	grid-column-start: 1;
+	grid-column-end: 2;
+	grid-row-start: 2;
+	grid-row-end: 3;
+	background: #383838;
+	border-right: 1px solid #151515
+}
+
+.side-bar-item {
+	grid-column-start: 2;
+	grid-column-end: 3;
+	grid-template-columns: auto 100px auto;
+	text-align: left;
+	color: #8A8A8A;
+	font-size: 12px;
+}
+.side-bar-header{
+	padding: 30px 0 20px 0;
+	color: white;
+	font-size: 20px;
+}
+
+.input-numeric {
+	color: #9F9F9F;
+	background-color: #151515;
+	border: 1px solid rgba(70,70,70,1);
+	border-radius: 3px;
+	text-align: left;
+	margin: 1px 0 6px 0;
+	width: 100%;
+	font-size: 14px;
+	padding: 4px;
+}
+
+input:focus.input-numeric {
+	background-color: rgb(50,50,50);
+	border: 1px solid rgb(50,50,50);
+	outline: none;
+}
+
+.text-button {
+	background-color: #383838;
+	border: 0;
+	color: #8A8A8A;
+	font-size: 14px;
+	margin: 0;
+	padding: 0;
+}
+
+button:hover.text-button {
+	color: white;
+}
+
+button:focus.text-button {
+	outline: none;
+}
+
+button:active.text-button {
+	margin: 1px 0 0 1px;
+}
