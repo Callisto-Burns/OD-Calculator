@@ -9,10 +9,10 @@ const angleBox = document.querySelector('#angle')
 const clearButton = document.querySelector('#clearButton')
 const renderContainer = document.querySelector('.render-container')
 
-const toolRenderController = new RenderController(canvas)
+//const toolRenderController = new RenderController(canvas)
 
 var step = new Step()
-toolRenderController.renderElements.push(step)
+//toolRenderController.renderElements.push(step)
 
 //Grouping of the sidebar input elements for indexing 
 //Would like to make this less hacked together in the future, possibly pass the sidebar as an argument
@@ -23,13 +23,6 @@ const sideBarInputs = [
     smallDiameterBox,
     angleBox
 ]
-
-//Fit the canvas to the size of its parent container
-fitToContainer(canvas)
-function fitToContainer(canvas){
-	canvas.width = renderContainer.clientWidth
-    canvas.height = renderContainer.clientHeight
-}
 
 /* Keyboard Listener */
 document.addEventListener('keydown', (event) => {
@@ -149,6 +142,7 @@ step.on('calculate', (calculatedValue, result) => {
 })
 
 /* Animation Loop for Tool Render */
+/*
 let timeZero = 0
 function renderLoop(timeStamp){
     let deltaTime = timeStamp - timeZero
@@ -157,7 +151,7 @@ function renderLoop(timeStamp){
     toolRenderController.render()
     requestAnimationFrame(renderLoop)
 }
-requestAnimationFrame(renderLoop)
+requestAnimationFrame(renderLoop)*/
 
 
 
