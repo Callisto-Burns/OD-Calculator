@@ -1,4 +1,4 @@
-const FillPatterns = require('./fill-patterns')
+
 const EventEmmitter = require('events')
 
 class Step extends EventEmmitter{
@@ -10,8 +10,6 @@ class Step extends EventEmmitter{
 
     constructor(){
         super()
-        
-        this.geometry = [[0,0],[0,20],[80,20],[80,0]]
     }
 
     reset () {
@@ -19,7 +17,6 @@ class Step extends EventEmmitter{
         this.smallDiameter = undefined
         this.bigDiameter = undefined
         this.angle = undefined
-        this.geometry = [[0,0],[0,20],[80,20],[80,0]]
     }
 
     update () {
@@ -68,44 +65,8 @@ class Step extends EventEmmitter{
                 console.log('default')
                 break;
         }
-
-        this.geometry = [
-            [0,0],
-            [0,this.smallDiameter/2],
-            [(this.length * 2) + 20, this.smallDiameter/2],
-            [(this.length * 3) + 20, this.bigDiameter/2],
-            [(this.length* 5) + 40, this.bigDiameter/2],
-            [(this.length * 5) + 40, 0]
-        ]
     }
 
-    /** draw the step on the context given by a render controller */
-    draw(rend){
-
-        let geometry = JSON.parse(JSON.stringify(this.geometry))
-        //this.length ? rend.scale = rend.canvas.clientWidth / this.length / 50 : rend.scale = 3
-
-        geometry.forEach(element => {
-            element[0] = element[0] * rend.scale
-            element[1] = element[1] * rend.scale
-        })
-
-        rend.ctx.setLineDash([])
-        rend.ctx.strokeStyle = "white"
-        rend.ctx.lineWidth = 2
-        rend.ctx.beginPath()
-        rend.ctx.moveTo(geometry[0][0] + rend.origin.x, geometry[0][1] + rend.origin.y)
-        geometry.forEach(element => {
-            rend.ctx.lineTo(element[0] + rend.origin.x, element[1] + rend.origin.y)
-        })
-        rend.ctx.moveTo(geometry[0][0] + rend.origin.x, geometry[0][1] + rend.origin.y)
-        geometry.forEach(element => {
-            rend.ctx.lineTo(element[0] + rend.origin.x, -element[1] + rend.origin.y)
-        })
-        rend.ctx.fillStyle = rend.ctx.createPattern(FillPatterns.crossHatching(15 ,"#9f9f9f", "white"), "repeat")
-        rend.ctx.fill()
-        rend.ctx.stroke()
-    }
 } module.exports = Step
 
 

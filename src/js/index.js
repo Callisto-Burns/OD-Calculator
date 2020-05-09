@@ -1,23 +1,17 @@
 const Step = require('./js/step') // "./" refers to the directory in which the index.html is placed
-const RenderController = require('./js/render-controller')
-
-const canvas = document.querySelector('.tool-render')
 const lengthBox = document.querySelector('#length')
 const smallDiameterBox = document.querySelector('#smallDiameter')
 const bigDiameterBox = document.querySelector('#bigDiameter')
 const angleBox = document.querySelector('#angle')
 const clearButton = document.querySelector('#clearButton')
-const renderContainer = document.querySelector('.render-container')
-
-//const toolRenderController = new RenderController(canvas)
+const helpButton = document.querySelector('#helpButton')
+const electron = require('electron')
+const {ipcRenderer} = electron
 
 var step = new Step()
-//toolRenderController.renderElements.push(step)
 
-//Grouping of the sidebar input elements for indexing 
-//Would like to make this less hacked together in the future, possibly pass the sidebar as an argument
-//and group the children automatically
-const sideBarInputs = [
+/* Grouping of input fields for simple indexing */
+const menuInputs = [
     lengthBox,
     bigDiameterBox,
     smallDiameterBox,
@@ -30,13 +24,13 @@ document.addEventListener('keydown', (event) => {
         switch(event.keyCode){
             case 13: //Enter key pressed
                 submit()
-                focusNext(document.activeElement, sideBarInputs)
+                focusNext(document.activeElement, menuInputs)
                 break;
             case 38: //Up arrow key pressed
-                focusPrevious(document.activeElement, sideBarInputs)
+                focusPrevious(document.activeElement, menuInputs)
                 break;
             case 40: //Down arrow key pressed
-                focusNext(document.activeElement, sideBarInputs)
+                focusNext(document.activeElement, menuInputs)
             break;
         }
     }     
@@ -47,7 +41,7 @@ document.addEventListener('input', (event) => {
     if (event.target.className.includes('input-numeric')) {
         event.target.value = event.target.value.split(' ').join('')
     }
-    sideBarInputs.forEach(element => {
+    menuInputs.forEach(element => {
         validateInput(element)
     })
 })
@@ -66,6 +60,11 @@ document.addEventListener('focusout', (event) => {
 clearButton.addEventListener('click', (event) => {
     clearTextBoxes()
     step.reset()
+})
+
+/* Open help dialogue */
+helpButton.addEventListener('click', () => {
+    ipcRenderer.send('show-help-dialogue')
 })
 
 /* Handles text highlighting for text boxes based on validity of the input */
@@ -110,15 +109,15 @@ function focusNext(activeElement, collection){
 
 /* Empties the contents of each of the text boxes on the window */
 function clearTextBoxes(){
-    sideBarInputs.forEach(element => {
+    menuInputs.forEach(element => {
         element.value = null
     })
 }
 
-/*  */
+/* Test contents of inputs and trigger calculation */
 function submit(){
     let validInputs = 0
-    sideBarInputs.forEach(element => {
+    menuInputs.forEach(element => {
         let id = element.getAttribute('id')
         if (isNaN(element.value) || (element.value == "") || (element.value == null) || (element.value == undefined)) {
             step[id] = undefined
@@ -141,17 +140,8 @@ step.on('calculate', (calculatedValue, result) => {
     document.getElementById(calculatedValue).style.color = 'green'
 })
 
-/* Animation Loop for Tool Render */
-/*
-let timeZero = 0
-function renderLoop(timeStamp){
-    let deltaTime = timeStamp - timeZero
-    timeZero = timeStamp
 
-    toolRenderController.render()
-    requestAnimationFrame(renderLoop)
-}
-requestAnimationFrame(renderLoop)*/
+
 
 
 
