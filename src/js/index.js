@@ -9,6 +9,7 @@ const L_clearButton = document.querySelector('#L_clearButton')
 const D_clearButton = document.querySelector('#D_clearButton')
 const d_clearButton = document.querySelector('#d_clearButton')
 const T_clearButton = document.querySelector('#T_clearButton')
+const submitButton = document.querySelector('#submitButton')
 const electron = require('electron')
 const {ipcRenderer} = electron
 

@@ -31,7 +31,7 @@ app.on('ready', () => {
         app.quit()
     })
 
-    //mainWindow.setMenu(null)
+    mainWindow.setMenu(null)
 })
 
 ipcMain.on('show-help-dialogue', (event) => {
