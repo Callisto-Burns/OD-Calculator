@@ -6,7 +6,8 @@ const path = require('path')
 
 const { app, BrowserWindow, ipcMain } = electron
 
-let mainWindow;
+let mainWindow
+let isHelpOpen = false
 
 app.on('ready', () => {
     mainWindow = new BrowserWindow({
@@ -15,7 +16,9 @@ app.on('ready', () => {
         webPreferences: {
             nodeIntegration: true
         },
-        resizable: false
+        resizable: false,
+        icon: "src/img/logo-symbol.ico",
+        title: ""
     })
 
     mainWindow.loadURL(url.format({
@@ -27,11 +30,13 @@ app.on('ready', () => {
     mainWindow.on('closed', () => {
         app.quit()
     })
+
+    //mainWindow.setMenu(null)
 })
 
-ipcMain.on('show-help-dialogue', () => {
+ipcMain.on('show-help-dialogue', (event) => {
 
-    
+    isHelpOpen = true // set status of help window to 'open'
 
     helpDialogue = new BrowserWindow({
         height: 370,
@@ -40,7 +45,9 @@ ipcMain.on('show-help-dialogue', () => {
             nodeIntegration: true
         },
         resizable: false,
-        parent: mainWindow
+        parent: mainWindow,
+        icon: "src/img/logo-symbol.ico",
+        title: ""
     })
 
     helpDialogue.loadURL(url.format({
@@ -48,4 +55,16 @@ ipcMain.on('show-help-dialogue', () => {
         protocol: 'file:',
         slashes: true
     }))
+
+    helpDialogue.setMenu(null)
+
+    helpDialogue.on('close', () => {
+        isHelpOpen = false
+        // allow help button on main render to open a help window
+    })
+})
+
+ipcMain.on('is-help-open', (event) => {
+    // returns true if help window is open
+    event.returnValue = isHelpOpen
 })

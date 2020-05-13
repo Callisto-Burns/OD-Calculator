@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>OD Calculator Prototype</title>
 	<link rel="stylesheet" href="./css/styles.css"/>
 </head>
 <body>
@@ -14,23 +13,27 @@
 		<div class="menu">
 			<div class="menu-item menu-header">
 				<label class="header-label">Step Dimensions</label>
-				<button class="text-button" id="helpButton">[?]</button>
+				<button class="text-button help-button" id="helpButton">[?]</button>
 			</div>
 			<div class="menu-item">
-				<label class="label-calc">Length</label>
+				<label class="menu-label">Length (L)</label>
 				<input type="text" class="input-numeric" id="length">
+				<button class="text-button clear-button" id="L_clearButton">[x]</button>
 			</div>
 			<div class="menu-item">
-				<label class="label-calc">Big Diameter</label>
+				<label class="menu-label">Big Diameter (D)</label>
 				<input type="text" class="input-numeric" id="bigDiameter">
+				<button class="text-button clear-button" id="D_clearButton">[x]</button>
 			</div>
 			<div class="menu-item">
-				<label class="label-calc">Small Diameter</label>
+				<label class="menu-label">Small Diameter (d)</label>
 				<input type="text" class="input-numeric" id="smallDiameter">
+				<button class="text-button clear-button" id="d_clearButton">[x]</button>
 			</div>
 			<div class="menu-item">
-				<label class="label-calc">Angle</label>
+				<label class="menu-label">Angle (Θ)</label>
 				<input type="text" class="input-numeric" id="angle">
+				<button class="text-button clear-button" id="T_clearButton">[x]</button>
 			</div>
 			<div class="menu-item">
 				<button class="text-button" id="clearButton">&#8635</button>

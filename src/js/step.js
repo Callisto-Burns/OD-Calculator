@@ -43,23 +43,23 @@ class Step extends EventEmmitter{
         switch(decisionKey){
             case 15:
                 //big diameter
-                this.bigDiameter = ((2 * Math.tan(this.angle * Math.PI / 180) * this.length) + this.smallDiameter)
-                this.emit('calculate', 'bigDiameter', this.bigDiameter.toFixed(3))
+                this.bigDiameter = Number.parseFloat(this.smallDiameter) + (2 * (Math.tan(this.angle * (Math.PI/180))) * this.length)
+                this.emit('calculate', 'bigDiameter', Number.parseFloat(this.bigDiameter).toFixed(3))
                 break;
             case 13:
                 //small diameter
                 this.smallDiameter = (this.bigDiameter - (this.length * 2 * Math.tan(this.angle * Math.PI / 180)))
-                this.emit('calculate', 'smallDiameter', this.smallDiameter.toFixed(3))
+                this.emit('calculate', 'smallDiameter', Number.parseFloat(this.smallDiameter).toFixed(3))
                 break;
             case 11:
                 //angle
                 this.angle = ((180 / Math.PI) * Math.atan((this.bigDiameter - this.smallDiameter) / (this.length * 2)))
-                this.emit('calculate', 'angle', this.angle.toFixed(3))
+                this.emit('calculate', 'angle', Number.parseFloat(this.angle).toFixed(3))
                 break;
             case 9:
                 //length
                 this.length = ((this.bigDiameter - this.smallDiameter) / (2 * Math.tan(this.angle * Math.PI / 180)))
-                this.emit('calculate', 'length', this.length.toFixed(3))
+                this.emit('calculate', 'length', Number.parseFloat(this.length).toFixed(3))
                 break;
             default:
                 console.log('default')

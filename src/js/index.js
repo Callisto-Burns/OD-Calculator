@@ -5,10 +5,15 @@ const bigDiameterBox = document.querySelector('#bigDiameter')
 const angleBox = document.querySelector('#angle')
 const clearButton = document.querySelector('#clearButton')
 const helpButton = document.querySelector('#helpButton')
+const L_clearButton = document.querySelector('#L_clearButton')
+const D_clearButton = document.querySelector('#D_clearButton')
+const d_clearButton = document.querySelector('#d_clearButton')
+const T_clearButton = document.querySelector('#T_clearButton')
 const electron = require('electron')
 const {ipcRenderer} = electron
 
 var step = new Step()
+var answerBox = null
 
 /* Grouping of input fields for simple indexing */
 const menuInputs = [
@@ -19,11 +24,23 @@ const menuInputs = [
 ]
 
 /* Keyboard Listener */
-document.addEventListener('keydown', (event) => {
+var isSecondEnter = false
+window.addEventListener('keydown', (event) => {
     if (document.activeElement.className.includes('input-numeric')){
         switch(event.keyCode){
             case 13: //Enter key pressed
                 submit()
+                menuInputs.forEach(element => {
+                    validateContents(element)
+                })
+                if (document.activeElement == answerBox) break
+                if (answerBox){
+                    if (!isSecondEnter){
+                        isSecondEnter = !isSecondEnter
+                        break
+                    }
+                    isSecondEnter = !isSecondEnter
+                }
                 focusNext(document.activeElement, menuInputs)
                 break;
             case 38: //Up arrow key pressed
@@ -36,44 +53,79 @@ document.addEventListener('keydown', (event) => {
     }     
 })
 
-/* Event listeners for each of the input objects */
+/* Event listeners for each of the input objects (text boxes) */
 document.addEventListener('input', (event) => {
     if (event.target.className.includes('input-numeric')) {
         event.target.value = event.target.value.split(' ').join('')
     }
     menuInputs.forEach(element => {
-        validateInput(element)
+        validateContents(element)
     })
+    answerBox = null
 })
 document.addEventListener('focusin', (event) => {
     if (event.target.className.includes('input-numeric')) {
-        event.target.select()
+        //event.target.select() //highlight with cursor the contents of textbox 
+        if (event.target != answerBox) {
+            answerBox = null
+        }
+        menuInputs.forEach(element => {
+            validateContents(element)
+        })
     }
 })
 document.addEventListener('focusout', (event) => {
     if (event.target.className.includes('input-numeric')) {
-
+        if (event.target == answerBox){
+            answerBox = null //remove green color when deselecting answer box
+        }
+        menuInputs.forEach(element => {
+            validateContents(element)
+        })
     }
 })
 
-/* Refresh button listener */
+/* Refresh-button listener */
 clearButton.addEventListener('click', (event) => {
     clearTextBoxes()
     step.reset()
 })
 
-/* Open help dialogue */
-helpButton.addEventListener('click', () => {
-    ipcRenderer.send('show-help-dialogue')
+/* Individual clear-button listeners */
+L_clearButton.addEventListener('click', (event) => {
+    step.reset()
+    lengthBox.value = null
+})
+D_clearButton.addEventListener('click', (event) => {
+    step.reset()
+    bigDiameterBox.value = null
+})
+d_clearButton.addEventListener('click', (event) => {
+    step.reset()
+    smallDiameterBox.value = null
+})
+T_clearButton.addEventListener('click', (event) => {
+    step.reset()
+    angleBox.value = null
 })
 
-/* Handles text highlighting for text boxes based on validity of the input */
-function validateInput(input){
+/* Open help dialogue */
+helpButton.addEventListener('click', () => {
+    if(!ipcRenderer.sendSync('is-help-open')){ // Only open if there is no other help dialogue currently open
+        ipcRenderer.send('show-help-dialogue')
+    }
+})
+
+/* Handles text coloring for text boxes based on validity of the input */
+function validateContents(input){
     if (isNaN(input.value)) {
         input.style.color = "red"
     }
     else {
         input.style.color = "#9F9F9F"
+    }
+    if(answerBox){
+        answerBox.style.color = "green"
     }
 }
 
@@ -137,7 +189,7 @@ function submit(){
 
 step.on('calculate', (calculatedValue, result) => {
     document.getElementById(calculatedValue).value = result
-    document.getElementById(calculatedValue).style.color = 'green'
+    answerBox = document.getElementById(calculatedValue)
 })
 
 

@@ -1,5 +1,4 @@
 * {
-	position: relative;
 	font-family: Arial;
 }
 
@@ -25,10 +24,7 @@ body, .grid-container{
 
 .header {
 	background-color: #ff6700;
-	grid-column-start: 1;
-	grid-column-end: 4;
-	grid-row-start: 1;
-	grid-row-end: 2;
+	grid-row: 1;
 	text-align: left;
 	padding: 12px;
 	font-size: 30px;
@@ -38,9 +34,10 @@ body, .grid-container{
 .header > * {
 	display: inline-block;
 	vertical-align: top;
+	grid-row: 1;
 }
 
-.logo{
+.logo {
 	padding: 3px 15px 0 5px;
 	height: 30px;
 	width: auto;
@@ -50,26 +47,65 @@ body, .grid-container{
 	width: 100%;
 	margin: 0;
 	display: grid;
-	grid-template-rows: 65px 45px 45px 45px 45px 30px;
+	grid-template-rows: 50px 45px 45px 45px 45px 30px;
 	grid-template-columns: 75px 200px 75px;
-	grid-row-start: 2;
-	grid-row-end: 3;
-	grid-column: 1;
+	grid-row: 2;
 	background: #383838;
 }
 
 .menu-item {
+	display: grid;
 	grid-column-start: 2;
 	grid-column-end: 3;
-	grid-template-columns: auto 100px auto;
+	grid-template-rows: auto auto;
+	grid-template-columns: 2fr 200px 1fr 1fr;
 	text-align: left;
 	color: #8A8A8A;
 	font-size: 12px;
 }
 .menu-header{
-	padding: 30px 0 20px 0;
+	display: inline;
+	padding: 20px 0 20px 0;
 	color: white;
 	font-size: 20px;
+}
+.menu-label{
+	grid-row: 1;
+	grid-column: 2;
+}
+
+.help-page{
+	background: #383838;
+	display: grid;
+	grid-template-rows: 2fr 2fr;
+	grid-template-columns: 1fr 1fr;
+	margin: 0;
+	height: 100%;
+	width: 100%;
+}
+.formula {
+	height : 80px;
+	width: auto;
+	grid-row: 1;
+	margin-top: 70px;
+	margin-left: 10px;
+}
+.step-diagram {
+	height: 160px;
+	margin-top: 20px;
+	width: auto;
+	grid-row: 1;
+}
+.help-instructions {
+	grid-column: 1 / span 2;
+	font-size: 18px;
+	text-align: center;
+	margin: 50px 15px 0px 15px;
+	color: #9F9F9F;
+}
+.help-button{
+	padding-left: 10px;
+	padding-bottom: 50px;
 }
 
 .input-numeric {
@@ -82,6 +118,8 @@ body, .grid-container{
 	width: 100%;
 	font-size: 14px;
 	padding: 4px;
+	grid-column: 2;
+	grid-row: 2;
 }
 
 input:focus.input-numeric {
@@ -111,6 +149,9 @@ button:active.text-button {
 	margin: 1px 0 0 1px;
 }
 
-.header-label {
-	margin: 0 10px 0 0;
+.clear-button {
+	grid-column: 3;
+	grid-row: 2;
+	padding-left: 10px;
+	padding-bottom: 8px;
 }
