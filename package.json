@@ -6,7 +6,7 @@
   "scripts": {
     "start": "electron .",
     "build-osx": "electron-packager . OD --electron-version 7.1.1 --platform darwin --icon ./src/img/logo-symbol.icns --out ./dist --overwrite",
-    "build-win": "electron-packager . OD --electron-version 7.1.1 --platform win32 --icon ./src/img/logo-symbol.ico ./dist --overwrite"
+    "build-win": "electron-packager . OD --electron-version 7.1.1 --platform win32 --icon ./src/img/logo-symbol.ico --out ./dist --overwrite"
   },
   "build": {
     "appId": "OD Calculator",
