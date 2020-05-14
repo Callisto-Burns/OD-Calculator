@@ -4,7 +4,7 @@ const electron = require('electron')
 const url = require('url')
 const path = require('path')
 
-const { app, BrowserWindow, ipcMain } = electron
+const { app, BrowserWindow, ipcMain, Menu } = electron
 
 let mainWindow
 let isHelpOpen = false
@@ -31,7 +31,10 @@ app.on('ready', () => {
         app.quit()
     })
 
+    Menu.setApplicationMenu(null)
     mainWindow.setMenu(null)
+    mainWindow.removeMenu()
+
 })
 
 ipcMain.on('show-help-dialogue', (event) => {

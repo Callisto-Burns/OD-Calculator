@@ -31,9 +31,7 @@ window.addEventListener('keydown', (event) => {
         switch(event.keyCode){
             case 13: //Enter key pressed
                 submit()
-                menuInputs.forEach(element => {
-                    validateContents(element)
-                })
+                updateHighlighting()
                 if (document.activeElement == answerBox) break
                 if (answerBox){
                     if (!isSecondEnter){
@@ -59,9 +57,7 @@ document.addEventListener('input', (event) => {
     if (event.target.className.includes('input-numeric')) {
         event.target.value = event.target.value.split(' ').join('')
     }
-    menuInputs.forEach(element => {
-        validateContents(element)
-    })
+    updateHighlighting()
     answerBox = null
 })
 document.addEventListener('focusin', (event) => {
@@ -70,9 +66,7 @@ document.addEventListener('focusin', (event) => {
         if (event.target != answerBox) {
             answerBox = null
         }
-        menuInputs.forEach(element => {
-            validateContents(element)
-        })
+        updateHighlighting()
     }
 })
 document.addEventListener('focusout', (event) => {
@@ -80,9 +74,7 @@ document.addEventListener('focusout', (event) => {
         if (event.target == answerBox){
             answerBox = null //remove green color when deselecting answer box
         }
-        menuInputs.forEach(element => {
-            validateContents(element)
-        })
+        updateHighlighting()
     }
 })
 
@@ -96,18 +88,32 @@ clearButton.addEventListener('click', (event) => {
 L_clearButton.addEventListener('click', (event) => {
     step.reset()
     lengthBox.value = null
+    answerBox = null
+    updateHighlighting()
 })
 D_clearButton.addEventListener('click', (event) => {
     step.reset()
     bigDiameterBox.value = null
+    answerBox = null
+    updateHighlighting()
 })
 d_clearButton.addEventListener('click', (event) => {
     step.reset()
     smallDiameterBox.value = null
+    answerBox = null
+    updateHighlighting()
 })
 T_clearButton.addEventListener('click', (event) => {
     step.reset()
     angleBox.value = null
+    answerBox = null
+    updateHighlighting()
+})
+
+/* Submit-button listener */
+submitButton.addEventListener('click', (event) => {
+    submit()
+    updateHighlighting()
 })
 
 /* Open help dialogue */
@@ -158,6 +164,12 @@ function focusNext(activeElement, collection){
             break
         }
     }
+}
+
+function updateHighlighting() {
+    menuInputs.forEach(element => {
+        validateContents(element)
+    })
 }
 
 /* Empties the contents of each of the text boxes on the window */
